@@ -14,7 +14,6 @@ from jina import MultimodalDocument
 
 
 num_docs = int(os.environ.get('MAX_DOCS', 20))
-torch.set_num_threads(32)#torch.get_num_thread()*2
 
 def clean_workdir():
     if os.path.exists(os.environ['JINA_WORKSPACE']):
@@ -75,22 +74,23 @@ def index():
             logits = model(input_values).logits
             predicted_ids = torch.argmax(logits, dim=-1)
             transcription = tokenizer.batch_decode(predicted_ids)[0].lower()
-            print("indexing file", i+1, "of", amount_files, speech_path.split("/").pop())
+            print("indexing file", i+1, "of", num_docs, speech_path.split("/").pop())
             print("transcription", transcription)
             
+            with open(data_path, "a") as file:    
+                file.write(transcription + "\n")
+
             #document = MultimodalDocument(modality_content_map={
             #    'text': transcription,
             #    'path': speech_path
             #})
-            with Document() as document:
-                document.content = transcription
-                document.modality = 'text'
-                document.mime_type = 'text/plain'
-                document.tags = { "path": speech_path }
-            docs.append(transcription)#document)
+            doc = Document(content=line,
+                tags={'path': speech_paths[i]})
+            docs.append(doc)
+            
 
         with f:
-            f.index_lines(lines=docs, read_mode="r", size=len(ts))
+            f.index_lines(lines=docs    , read_mode="r", size=len(ts))
         
 
 def search():
