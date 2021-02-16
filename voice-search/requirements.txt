@@ -1,0 +1,4 @@
+jina[devel,torch]==1.0
+transformers==4.3.2
+torch
+soundfile
