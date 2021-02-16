@@ -1,4 +1,4 @@
-# speech-search
+# voice-search
 
 [![Jina](https://github.com/jina-ai/jina/blob/master/.github/badges/jina-badge.svg?raw=true  "We fully commit to open-source")](https://get.jina.ai)
 
