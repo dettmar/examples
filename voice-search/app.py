@@ -90,7 +90,7 @@ def index():
             
 
         with f:
-            f.index_lines(lines=docs    , read_mode="r", size=len(ts))
+            f.index_lines(lines=docs, read_mode="r", size=num_docs)
         
 
 def search():
