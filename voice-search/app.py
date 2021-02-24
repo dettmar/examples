@@ -47,11 +47,11 @@ def index():
         with open(data_path, "r") as fi:
             lines = fi.readlines()
             for i, line in enumerate(lines[:num_docs]):
-                #doc = Document(content=line,
-                #    tags={'path': speech_paths[i]})
-                text = Document(content=line, modality='text')
-                audio = Document(content=speech_paths[i], modality='audio', mime_type="audio/flac")
-                doc = MultimodalDocument(chunks=[text, audio])
+                doc = Document(content=line,
+                    tags={'path': speech_paths[i]})
+                #text = Document(content=line, modality='text')
+                #audio = Document(content=speech_paths[i], modality='audio', mime_type="audio/flac")
+                #doc = MultimodalDocument(chunks=[text, audio])
                 docs.append(doc)
         
         with f:
@@ -84,7 +84,7 @@ def index():
             #    'text': transcription,
             #    'path': speech_path
             #})
-            doc = Document(content=line,
+            doc = Document(content=transcription,
                 tags={'path': speech_paths[i]})
             docs.append(doc)
             
